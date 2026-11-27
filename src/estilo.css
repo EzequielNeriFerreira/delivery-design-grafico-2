@@ -1,0 +1,12 @@
+/* O Bootstrap cuida do layout. Aqui ficam só as medidas das imagens. */
+.foto-comida {
+  height: 220px;
+}
+
+.logo-restaurante {
+  height: 120px;
+}
+
+.foto-destaque {
+  max-height: 320px;
+}

@@ -1,0 +1,26 @@
+{
+  "name": "classroom-delivery",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "scripts": {
+    "dev": "node servidor.js --dev",
+    "api": "node servidor.js --api",
+    "start": "node servidor.js",
+    "build": "vite build",
+    "preview": "node servidor.js"
+  },
+  "dependencies": {
+    "bootstrap": "5.3.8",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-router-dom": "7.18.4"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.1.2",
+    "vite": "8.3.4"
+  }
+}
