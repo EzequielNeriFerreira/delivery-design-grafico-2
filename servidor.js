@@ -117,6 +117,31 @@ export async function atenderApi(req, res, url) {
   return responder(res, 200, dados, semCorpo);
 }
 
+// Cria os handlers explícitos usados pelo roteamento de funções do Vercel.
+export function criarHandlerVercel(tipo, detalhe = false) {
+  return async function handler(req, res) {
+    const origem = new URL(req.url || '/', 'https://delivery.vercel.app');
+    const base = `/api/${tipo}`;
+    let caminho = origem.pathname;
+
+    if (caminho === base && detalhe) {
+      const valorId = req.query?.id;
+      const id = Array.isArray(valorId) ? valorId[0] : valorId;
+      if (id !== undefined) caminho += `/${encodeURIComponent(String(id))}`;
+    }
+
+    const url = new URL(caminho, origem.origin);
+    const idNaRota = detalhe ? caminho.slice(base.length + 1) : '';
+    for (const [chave, valor] of origem.searchParams) {
+      if (chave === '...path') continue;
+      if (detalhe && chave === 'id' && valor === idNaRota) continue;
+      url.searchParams.append(chave, valor);
+    }
+
+    await atenderApi(req, res, url);
+  };
+}
+
 const formatos = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.jpg': 'image/jpeg', '.png': 'image/png', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.ico': 'image/x-icon' };
 
 // Na produção, o mesmo processo serve o build do site e a API em /api.
