@@ -90,7 +90,7 @@ function responder(res, status, dados, semCorpo = false) {
 }
 
 // As únicas operações da atividade são listagem e consulta por identificador.
-async function atenderApi(req, res, url) {
+export async function atenderApi(req, res, url) {
   const semCorpo = req.method === 'HEAD';
   const caminho = url.pathname.replace(/^\/api(?=\/|$)/, '') || '/';
   const partes = caminho.replace(/\/$/, '').split('/').slice(1);
