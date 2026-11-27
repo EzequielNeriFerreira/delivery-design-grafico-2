@@ -14,5 +14,12 @@ export default async function handler(req, res) {
     if (chave !== 'path') url.searchParams.append(chave, valor);
   }
 
+  console.log('vercel-api-route', {
+    requestPath: origem.pathname,
+    queryKeys: [...origem.searchParams.keys()],
+    frameworkQueryKeys: Object.keys(req.query || {}),
+    routeType: Array.isArray(rota) ? 'array' : typeof rota,
+  });
+
   await atenderApi(req, res, url);
 }
